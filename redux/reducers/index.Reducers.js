@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
+import { setActiveTab } from "../slices/SetActiveSlice";
 
 const rootReducer = combineReducers({
-  // navBarStates: setNavBarSlice,
-  // userState: setUserStateSlice,
+  setTab: setActiveTab,
 });
 
 export default rootReducer;
