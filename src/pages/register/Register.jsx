@@ -8,49 +8,39 @@ import { useDispatch } from "react-redux";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [username, setUseName] = useState("");
   const [acceptTC, setAcceptTC] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
       email,
       password,
       acceptTC,
-      // username,
     };
-    axios
-      .post("http://localhost:5000/auth/register", userData)
-      .then((response) => {
-        console.log("registration successful:", response.data);
-        // navigate("./login");
 
-        alert("you have successfully registered");
-        dispatch(setActiveTab("login"));
+    // Update the URL to point to your JSON Server endpoint for registration
+    axios
+      .post("http://localhost:3001/users", userData)
+      .then((response) => {
+        console.log("Registration successful:", response.data);
+        alert("You have successfully registered.");
+        dispatch(setActiveTab("login")); // Dispatch action to switch to login tab/page
+        // navigate("/"); // Redirect to login page
       })
       .catch((error) => {
-        console.error("registration failed", error);
+        console.error("Registration failed:", error);
       });
   };
 
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        {/* <Form.Group controlId="registerFormUsername">
-          <Form.Label>USERNAME</Form.Label>
-          <Form.Control
-            // type=""
-            // placeholder="Enter a username"
-            value={username}
-            onChange={(e) => setUseName(e.target.value)}
-          />
-        </Form.Group> */}
         <Form.Group controlId="registerFormEmail">
           <Form.Label>EMAIL</Form.Label>
           <Form.Control
             type="email"
-            // placeholder="Enter a new email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -60,45 +50,42 @@ const Register = () => {
           <Form.Label>PASSWORD</Form.Label>
           <Form.Control
             type="password"
-            // placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
         <Form.Group controlId="registerFormPassword">
-          <Form.Label>CONFIRM PASSWORD</Form.Label>
+          <Form.Label>CONFIRM-PASSWORD</Form.Label>
           <Form.Control
             type="password"
-            // placeholder="Confirm password"
             // value={password}
-
             // onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
         <Form.Group
           controlId="registerFormCheckbox"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
+          className="mt-2 col-12 d-flex"
         >
           <Form.Check
             type="checkbox"
-            label="ACCEPT"
             checked={acceptTC}
             onChange={() => setAcceptTC(!acceptTC)}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
           />
-          <Link to={"/register/terms&condition"}>
-            <p
+          <p
+            style={{
+              paddingLeft: "3px",
+              color: "black",
+              textDecoration: "none",
+              marginBottom: "2px",
+              cursor: "pointer",
+              fontWeight: "600",
+            }}
+          >
+            Accept{" "}
+            <span
               style={{
                 paddingLeft: "3px",
-                color: "black",
+                color: "White",
                 textDecoration: "none",
                 marginBottom: "2px",
                 cursor: "pointer",
@@ -106,8 +93,8 @@ const Register = () => {
               }}
             >
               T&C
-            </p>
-          </Link>
+            </span>
+          </p>
         </Form.Group>
 
         <Button
@@ -115,12 +102,12 @@ const Register = () => {
           variant="primary"
           style={{
             fontSize: "11px",
-            color: " #147dff",
+            color: "#147dff",
             fontWeight: "600",
             borderColor: "transparent",
           }}
         >
-          RESGISTER
+          REGISTER
         </Button>
       </Form>
     </div>

@@ -1,8 +1,10 @@
 import React from "react";
 import BagSVG from "../../../assets/jsxSVG/BagSVG";
 import { Col, Button } from "react-bootstrap";
-
+import { useDispatch } from "react-redux";
+import { setUploadModal } from "../../../../redux/slices/SetUploadModalSlice";
 const LeavingBagPage = () => {
+  const dispatch = useDispatch();
   return (
     <Col
       className="col-12 d-flex mt-4 mb-4 pt-3 pb-3 ps-3"
@@ -33,6 +35,7 @@ const LeavingBagPage = () => {
               borderColor: "transparent",
               color: "",
             }}
+            onClick={() => dispatch(setUploadModal(true))}
           >
             Upload
           </Button>

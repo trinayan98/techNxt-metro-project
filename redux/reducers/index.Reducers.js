@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import { setActiveTab } from "../slices/SetActiveSlice";
+import SetActiveSlice from "../slices/SetActiveSlice";
+import SetUploadModalSlice from "../slices/SetUploadModalSlice";
 
 const rootReducer = combineReducers({
-  setTab: setActiveTab,
+  setTab: SetActiveSlice,
+  uploadModal: SetUploadModalSlice,
 });
 
 export default rootReducer;

@@ -16,7 +16,7 @@ const StartPage = () => {
   };
 
   return (
-    <Col style={{ padding: "30px" }} id="start-page-col">
+    <Col style={{ padding: "30px", minHeight: "70vh" }} id="start-page-col">
       <Container
         className="form_wrap_container d-block align-items-center flex-row"
         style={{
@@ -37,7 +37,7 @@ const StartPage = () => {
             flexDirection: "row",
 
             width: "784px",
-            alignItems: "flex-start",
+            // alignItems: "flex-start",
             margin: "0px",
             height: "412px",
           }}

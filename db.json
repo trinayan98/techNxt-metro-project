@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "id": "f66c",
+      "email": "l@gmail.com",
+      "password": "Dhananjay@17",
+      "acceptTC": false
+    },
+    {
+      "id": "8a20",
+      "email": "l@gmail.com",
+      "password": "Dhananjay@17",
+      "acceptTC": false
+    },
+    {
+      "id": "b001",
+      "email": "l@gmail.com",
+      "password": "Dhananjay@17",
+      "acceptTC": false
+    }
+  ],
+  "videos": []
+}

@@ -11,40 +11,38 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setEmailError("");
-
     setPasswordError("");
+
     const userData = {
       email,
       password,
     };
+
+    // Update the URL to point to your JSON Server endpoint
     axios
-      .post("http://localhost:5000/auth/login", userData)
+      .post("http://localhost:3001/users", userData)
       .then((res) => {
+        // Handle successful login
         localStorage.setItem("currentUser", JSON.stringify(res.data));
-
-        // Set a cookie
-        Cookies.set("accessToken", res.data["accessToken"]);
-
-        navigate("/landingPage");
-        console.log(res.data);
+        navigate("/");
       })
       .catch((error) => {
         if (error.response) {
           if (error.response.status === 404) {
             // Email not found error
-            setEmailError(error);
-            console.log(error.response.data.message);
-          } else if (error.response.status === 400) {
+            setEmailError("User not found");
+          } else if (error.response.status === 401) {
             // Incorrect password error
-            setPasswordError(error);
-            console.log(error.response.data.message);
+            setPasswordError("Incorrect password");
           }
         }
       });
   };
+
   return (
     <div>
       <Form onSubmit={handleSubmit} style={{ paddingBottom: "20px" }}>
@@ -52,44 +50,47 @@ const Login = () => {
           <Form.Label>EMAIL</Form.Label>
           <Form.Control
             type="email"
-            // placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {emailError && <span className="errorMessage">user not found</span>}
+          {emailError && <span className="errorMessage">{emailError}</span>}
         </Form.Group>
 
         <Form.Group controlId="loginFormPassword">
           <Form.Label>PASSWORD</Form.Label>
           <Form.Control
             type="password"
-            // placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           {passwordError && (
-            <span className="errorMessage">incorrect password</span>
+            <span className="errorMessage">{passwordError}</span>
           )}
         </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
+        <Form.Group
+          controlId="registerFormCheckbox"
+          className="mt-2 col-12 d-flex"
+        >
           <Form.Check
             type="checkbox"
-            label="Remember me"
-            style={{
-              display: "flex",
-              fontWeight: "400",
-              color: "#a6aeb9 ",
-              alignItems: "center",
-              fontSize: "12px",
-              padding: "8px 0px 10px 20px",
-            }}
+            // checked={acceptTC}
+            // onChange={() => setAcceptTC(!acceptTC)}
           />
+          <p
+            style={{
+              paddingLeft: "3px",
+              color: "black",
+              textDecoration: "none",
+              marginBottom: "2px",
+              cursor: "pointer",
+              fontWeight: "400",
+              fontSize: "11px",
+            }}
+          >
+            Remember me
+          </p>
         </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          style={{ fontSize: "11px", color: "#ffff", fontWeight: "600" }}
-        >
+        <Button variant="primary" type="submit" className="mt-2">
           LOG IN
         </Button>
       </Form>
